@@ -203,7 +203,7 @@ public class SqlMain {
 //			System.err.println(i+"1:"+tableList.get(i));
 //			System.err.println(i+"2:"+tableList.get(i).replace("dw2.dw", "tmp2.tmp"));
 			//建表
-			createAll = createAll + "create table "+newTableName+" (like "+tableName+" including defaults including constraints including indexes); \n" ;
+			createAll = createAll + "create table "+newTableName+" (like "+tableName+" including indexes) WITH ( OIDS=FALSE,appendonly=true, compresslevel=5, orientation=column, compresstype=zlib) tablespace tbs_tmp2 ; \n" ;
 		}
 		
 		writer.write(createAll);
