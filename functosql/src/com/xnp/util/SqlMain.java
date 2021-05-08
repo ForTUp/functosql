@@ -182,6 +182,10 @@ public class SqlMain {
 		String insertAll = "";
 		//建表语句
 		String createAll ="";
+		//drop语句
+		String dropAll = "";
+		//truncate语句
+		String truncateAll = "";
 		//合并sql
 		for (int i = 0; i < insertList.size(); i++) {
 			String insert = insertList.get(i);
@@ -204,9 +208,19 @@ public class SqlMain {
 //			System.err.println(i+"2:"+tableList.get(i).replace("dw2.dw", "tmp2.tmp"));
 			//建表
 			createAll = createAll + "create table "+newTableName+" (like "+tableName+" including indexes) WITH ( OIDS=FALSE,appendonly=true, compresslevel=5, orientation=column, compresstype=zlib) tablespace tbs_tmp2 ; \n" ;
+			//drop语句
+			dropAll = dropAll + "drop table "+newTableName + "; \n";
+			//truncate语句
+			truncateAll = truncateAll + "truncate "+newTableName + "; \n";
 		}
-		
+		writer.write("--DropAll#############################################\n");
+		writer.write(dropAll);
+		writer.newLine();
+		writer.write("--CreateAll#############################################\n");
 		writer.write(createAll);
+		writer.newLine();
+		writer.write("--TruncateAll#############################################\n");
+		writer.write(truncateAll);
 		writer.newLine();
 		writer.write(insertAll);
 		writer.flush();
